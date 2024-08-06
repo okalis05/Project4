@@ -1,7 +1,8 @@
 // Build the metadata panel
 function buildMetadata(sample) {
-    d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
-       console.log(data)
+  d3.json("output.json").then(function(data) {
+    console.log(data); 
+
       // get the metadata field 
       let metadata = data.metadata;
          console.log(metadata)
@@ -28,7 +29,7 @@ function buildMetadata(sample) {
   
   // function to build both charts
   function buildCharts(sample) {
-    d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+    d3.json("output.json").then((data) => {
       console.log(data);
   
       // Get the samples field
@@ -107,7 +108,7 @@ function buildMetadata(sample) {
   }
   // Function to run on page load
   function init(){
-    d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+    d3.json("output.json").then((data) => {
   
       // Get the names field
       let name = data.names
@@ -146,19 +147,16 @@ function buildMetadata(sample) {
   init();
 
   // Storing the Earthquakes & Tectonic Plates data url into Variables
-let earthquakesURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
-let platesURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
-
+let earthquakesURL = "Resources/output.json"
 
 
 // Initializing the LayerGroups for the earthquakes & tectonicPlates
-let earthquakes = new L.LayerGroup();
-let tectonicPlates = new L.LayerGroup();
+let politics= new L.LayerGroup();
 
-createMap(earthquakes)
+createMap(politics)
 
-// Decclaring the color of Marker Based on the depth of the Earthquake
-function mapColor(depth) {
+// Decclaring the color of Marker Based on the percent voting population
+function mapColor(population) {
     if (depth < 10)
         return "#00FF00";
     else if (depth < 30)
@@ -172,19 +170,10 @@ function mapColor(depth) {
     else return "orangered";
 };
 
-async function createMap(earthquakes) {
+async function createMap(politics) {
     // Defining variables for Tile Layers
     //Street View
-    let streetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    });
-
-    let sateliteMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors,<a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-
-    });
     
-
     let darkMap = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
         maxZoom: 20,
         subdomains:['mt0','mt1','mt2','mt3']
@@ -193,15 +182,13 @@ async function createMap(earthquakes) {
 
     //Define baseMaps Object to Hold Base Layers
     let baseMaps = {
-        "Street View": streetMap,
-        "Satelite view": sateliteMap,
-        "Night view": darkMap
+        "Street View": darkMap
     };
 
     // Create Overlay Object to Hold Overlay Layers
     let overlayMaps = {
-        "Earthquakes": earthquakes,
-        "Tectonic Plates": tectonicPlates
+        "Earthquakes": politics,
+        
     };
 
 
@@ -243,21 +230,7 @@ async function createMap(earthquakes) {
                 weight: 0.5
             };
         }
-        // Retrieve platesURL (Tectonic Plates GeoJSON Data) with D3
-        let plateData = await d3.json(platesURL)
-        console.log(plateData)
-        // Create a GeoJSON Layer the plateData
-        L.geoJson(plateData.features, {
-            color: "orange",
-            fillOpacity:0.5,
-            weight: 2
-
-            // Add plateData to tectonicPlates LayerGroups 
-        }).addTo(tectonicPlates);
-        // Add tectonicPlates Layer to the Map
-        tectonicPlates.addTo(myMap);
-
-
+        
         // Create a GeoJSON Layer Containing the Features Array on the earthquakeData 
         L.geoJSON(earthquakeData, {
             pointToLayer: function (feature, latlng) {
@@ -274,12 +247,10 @@ async function createMap(earthquakes) {
 
             }
             // Add earthquakeData to earthquakes LayerGroups 
-        }).addTo(earthquakes);
+        }).addTo(politics);
 
         // Add earthquakes Layer to the Map
-        earthquakes.addTo(myMap);
-
-
+        politics.addTo(myMap);
 
     }
     // Set Up Legend
