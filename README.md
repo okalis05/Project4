@@ -18,10 +18,11 @@ This project aims to predict the outcome of the 2024 US Presidential Elections .
 
 
 ### Data Collection
-- Elections results data from 'kaggle'
-- Demographic data from the 'US Census Bureau'
-- Economic Indicators data with aggregated financial information from election campaigns, including contributions, loans, disbursements, and expenditures.
-- Pollind data from 'FiveThirtyEight'
+- `Elections results data` from 'kaggle'
+- `Demographic data` from the 'US Census Bureau'
+- `Economic Indicators data` with aggregated financial information from election campaigns, including contributions, loans, disbursements,
+   and expenditures imported from the 'Federal Election Commission (FEC)' database
+- `Pollind data` from 'FiveThirtyEight'
 
 ### Data Preprocessing
 - Cleaning: Handled missing values, removed duplicates, and corrected inconsistencies in the dataset.
@@ -42,6 +43,7 @@ Three primary models were developed and evaluated:
    
 #### 3. Neural Network
    - Objective: To explore deep learning methods for potentially higher accuracy.
+   - Keras_tuner to optimize the neural network model to achieve even higher accuracy
 
 ### Model Evaluation
 - Metrics Used: Accuracy, precision, recall, F1 score, and ROC-AUC.
@@ -57,7 +59,7 @@ Three primary models were developed and evaluated:
 ### Conclusion
 The models developed in this project demonstrated high overall accuracy but faced challenges in predicting actual winners due to data imbalance. Future work will focus on addressing these imbalances and exploring additional models and techniques to improve prediction accuracy for the 2024 election.
 
-Contributors
+### Contributors
 - Elis Okala 
 - Monique Reid 
 
