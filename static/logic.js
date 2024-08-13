@@ -4,7 +4,7 @@ function buildMetadata(sample) {
     console.log(data); 
 
       // get the metadata field 
-      let metadata = data.metadata;
+      let metadata = data.Cycle;
          console.log(metadata)
     
       

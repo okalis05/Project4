@@ -37,3 +37,30 @@ body {
       overflow-x: hidden;
       width: 100vw;
     }
+    h3,h3 {
+      font-family: Open Sans;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 28px
+    }
+      body {
+          padding-top:90px
+      }
+      .button:active,.button:focus {
+        outline: none!important
+      }
+      
+      .button.button--primary {
+        border: 0
+      }
+      
+      .button.button--primary.button--green {
+        background-color: #6eb432;
+        color: #fff
+      }
+      
+      .button.button--primary.button--green:hover {
+        background-color: #62a02c
+      }
+    
